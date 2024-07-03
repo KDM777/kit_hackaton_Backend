@@ -1,6 +1,6 @@
-package LikeLion.backend.domain.board.repository;
+package LikeLion.backend.domain.post.repository;
 
-import LikeLion.backend.domain.board.domain.entity.Board;
+import LikeLion.backend.domain.post.domain.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

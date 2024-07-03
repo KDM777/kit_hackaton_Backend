@@ -1,11 +1,11 @@
-package LikeLion.backend.domain.board.service;
+package LikeLion.backend.domain.post.service;
 
-import LikeLion.backend.domain.board.domain.entity.Board;
-import LikeLion.backend.domain.board.domain.entity.User;
-import LikeLion.backend.domain.board.dto.BoardRequest;
-import LikeLion.backend.domain.board.dto.BoardResponse;
-import LikeLion.backend.domain.board.repository.BoardRepository;
-import LikeLion.backend.domain.user.repository.UserRepository;
+import LikeLion.backend.domain.post.domain.entity.Board;
+import LikeLion.backend.domain.post.domain.entity.User;
+import LikeLion.backend.domain.post.domain.request.BoardRequest;
+import LikeLion.backend.domain.post.domain.response.BoardResponse;
+import LikeLion.backend.domain.post.repository.BoardRepository;
+import LikeLion.backend.domain.post.repository.UserRepository;
 import LikeLion.backend.global.exception.GlobalExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -74,8 +74,17 @@ public class BoardService {
                 .orElseThrow(() -> new GlobalExceptionHandler.ResourceNotFoundException("Board not exist with id :" + id));
 
         boardRepository.delete(board);
-        Map <String, Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    // increase like count
+    public Board increaseLikeCount(Integer id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new GlobalExceptionHandler.ResourceNotFoundException("Board not exist with id :" + id));
+
+        board.setLikeCnt(board.getLikeCnt() + 1);
+        return boardRepository.save(board);
     }
 }

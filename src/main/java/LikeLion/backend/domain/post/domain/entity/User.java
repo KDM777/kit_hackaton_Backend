@@ -1,4 +1,4 @@
-package LikeLion.backend.domain.board.domain.entity;
+package LikeLion.backend.domain.post.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

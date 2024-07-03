@@ -1,9 +1,9 @@
-package LikeLion.backend.domain.board.controller;
+package LikeLion.backend.domain.post.controller;
 
-import LikeLion.backend.domain.board.domain.entity.Board;
-import LikeLion.backend.domain.board.dto.BoardRequest;
-import LikeLion.backend.domain.board.dto.BoardResponse;
-import LikeLion.backend.domain.board.service.BoardService;
+import LikeLion.backend.domain.post.domain.entity.Board;
+import LikeLion.backend.domain.post.domain.request.BoardRequest;
+import LikeLion.backend.domain.post.domain.response.BoardResponse;
+import LikeLion.backend.domain.post.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,5 +71,19 @@ public class BoardController {
     @DeleteMapping("/boards/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteBoard(@PathVariable Integer id) {
         return boardService.deleteBoard(id);
+    }
+
+    // increase like count
+    @PostMapping("/boards/{id}/like")
+    public ResponseEntity<BoardResponse> increaseLikeCount(@PathVariable Integer id) {
+        Board board = boardService.increaseLikeCount(id);
+        BoardResponse boardResponse = new BoardResponse(
+                board.getId(),
+                board.getTitle(),
+                board.getContent(),
+                board.getWriter(),
+                board.getViewCnt(),
+                board.getLikeCnt());
+        return ResponseEntity.ok(boardResponse);
     }
 }
